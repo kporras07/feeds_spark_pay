@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Feeds: Spark Pay base functions.
+ */
+
+/**
+ * Implements hook_feeds_plugins().
+ */
+function feeds_spark_pay_feeds_plugins() {
+  $info = array();
+
+  $info['FeedsSparkPayProductsFetcher'] = array(
+    'name' => 'Spark Pay Product Fetcher',
+    'description' => 'Fetch products from Spark Pay API.',
+    'handler' => array(
+      // Set FeedsFetcher as parent to avoid describing real parent because it's
+      // an abstract class.
+      'parent' => 'FeedsFetcher',
+      'class' => 'FeedsSparkPayProductsFetcher',
+      'file' => 'FeedsSparkPayProductsFetcher.inc',
+      'path' => drupal_get_path('module', 'feeds_spark_pay') . '/plugins',
+    ),
+  );
+
+  $info['FeedsSparkPayProductsParser'] = array(
+    'name' => 'Spark Pay Product Parser',
+    'description' => 'Parse fetched products from Spark Pay API.',
+    'handler' => array(
+      // Set FeedsParser as parent to avoid describing real parent because it's
+      // an abstract class.
+      'parent' => 'FeedsParser',
+      'class' => 'FeedsSparkPayProductsParser',
+      'file' => 'FeedsSparkPayProductsParser.inc',
+      'path' => drupal_get_path('module', 'feeds_spark_pay') . '/plugins',
+    ),
+  );
+
+  return $info;
+}
+
+/**
+ * Make a curl request and return the results.
+ *
+ * @param string $url
+ *   Url to request from SparkPay.
+ * @param array $query
+ *   Array with query parameters.
+ * @param string $auth_token
+ *   Token to authenticate with SparkPay.
+ *
+ * @return array
+ *   Results returned from Spark Pay.
+ */
+function feeds_spark_pay_make_curl_request($url, $query, $auth_token) {
+  $query = http_build_query($query);
+  $ch = curl_init("$url?$query");
+
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json',
+    'X-AC-Auth-Token: ' . $auth_token,
+  ));
+
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  $result = curl_exec($ch);
+
+  if (curl_error($ch)) {
+    throw new Exception(
+      t('cURL error (@code) @error for @url', array(
+        '@code' => curl_errno($ch),
+        '@error' => curl_error($ch),
+        '@url' => $url,
+      )), curl_errno($ch)
+    );
+  }
+
+  curl_close($ch);
+
+  return $result;
+}

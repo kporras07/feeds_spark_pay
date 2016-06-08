@@ -1,0 +1,9 @@
+name = Feeds: Spark Pay
+description = Integration with Spark Pay Store Builder.
+core = 7.x
+package = Feeds
+dependencies[] = feeds
+files[] = classes/FeedsSparkPayBaseFetcherResult.inc
+files[] = classes/FeedsSparkPayProductsFetcherResult.inc
+files[] = classes/FeedsSparkPayBaseFetcher.inc
+files[] = classes/FeedsSparkPayBaseParser.inc
