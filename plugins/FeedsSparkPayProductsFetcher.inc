@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Spark Pay Products Feeds Fetcher.
+ * AmeriCommerce Products Feeds Fetcher.
  */
 
 /**

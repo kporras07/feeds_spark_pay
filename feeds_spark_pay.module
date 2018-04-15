@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Feeds: Spark Pay base functions.
+ * Feeds: AmeriCommerce base functions.
  */
 
 /**
@@ -12,8 +12,8 @@ function feeds_spark_pay_feeds_plugins() {
   $info = array();
 
   $info['FeedsSparkPayProductsFetcher'] = array(
-    'name' => 'Spark Pay Product Fetcher',
-    'description' => 'Fetch products from Spark Pay API.',
+    'name' => 'AmeriCommerce Product Fetcher',
+    'description' => 'Fetch products from AmeriCommerce API.',
     'handler' => array(
       // Set FeedsFetcher as parent to avoid describing real parent because it's
       // an abstract class.
@@ -25,8 +25,8 @@ function feeds_spark_pay_feeds_plugins() {
   );
 
   $info['FeedsSparkPayProductsParser'] = array(
-    'name' => 'Spark Pay Product Parser',
-    'description' => 'Parse fetched products from Spark Pay API.',
+    'name' => 'AmeriCommerce Product Parser',
+    'description' => 'Parse fetched products from AmeriCommerce API.',
     'handler' => array(
       // Set FeedsParser as parent to avoid describing real parent because it's
       // an abstract class.
@@ -44,14 +44,14 @@ function feeds_spark_pay_feeds_plugins() {
  * Make a curl request and return the results.
  *
  * @param string $url
- *   Url to request from SparkPay.
+ *   Url to request from AmeriCommerce.
  * @param array $query
  *   Array with query parameters.
  * @param string $auth_token
- *   Token to authenticate with SparkPay.
+ *   Token to authenticate with AmeriCommerce.
  *
  * @return array
- *   Results returned from Spark Pay.
+ *   Results returned from AmeriCommerce.
  */
 function feeds_spark_pay_make_curl_request($url, $query, $auth_token) {
   $query = http_build_query($query);

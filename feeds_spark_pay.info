@@ -1,5 +1,5 @@
-name = Feeds: Spark Pay
-description = Integration with Spark Pay Store Builder.
+name = Feeds: AmeriCommerce (formerly Spark Pay)
+description = Integration with AmeriCommerce (formerly Spark Pay) Store Builder.
 core = 7.x
 package = Feeds
 dependencies[] = feeds

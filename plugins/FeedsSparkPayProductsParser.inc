@@ -2,7 +2,7 @@
 
 /**
  * @file
- * SparkPay Products FeedsParser.
+ * AmeriCommerce Products FeedsParser.
  */
 
 /**
